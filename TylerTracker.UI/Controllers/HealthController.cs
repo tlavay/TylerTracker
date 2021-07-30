@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,34 @@ namespace TylerTracker.UI.Controllers
     [Route("api/[controller]")]
     public class HealthController : ControllerBase
     {
+        private readonly ILogger<HealthController> logger;
+
         private readonly IHealthService healthService;
 
-        public HealthController(IHealthService healthService)
+        public HealthController(
+            ILogger<HealthController> logger,
+            IHealthService healthService)
         {
+            this.logger = logger;
             this.healthService = healthService;
         }
 
         [HttpPost, Route("create-health")]
         public async Task<IActionResult> CreateHealth(Health health)
         {
-            //update to create distinct
-            await this.healthService.SaveDistinctHealth(health);
-            return Ok();
+            string message;
+            try
+            {
+                await this.healthService.SaveDistinctHealth(health).ConfigureAwait(false);
+                message = "Successfully saved health data.";
+            }
+            catch (Exception ex)
+            {
+                message = $"An internal error occurred for health data, id: {health.Id}, date: {health.date}";
+                this.logger.LogError(ex, message);
+            }
+
+            return Ok(message);
         }
 
         [HttpGet, Route("get-last-6-months")]

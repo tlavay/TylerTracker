@@ -4,12 +4,6 @@ namespace TylerTracker.Common.Models
 {
     public record RecordBase
     {
-        public RecordBase(DateTime date, string documentType)
-        {
-            this.DocumentType = documentType;
-            this.Date = date;
-        }
-
         private Guid guid;
         public Guid Id
         {
@@ -29,9 +23,9 @@ namespace TylerTracker.Common.Models
             }
         }
 
-        public string DocumentType;
-        public DateTime Date { get; }
+        public string DocumentType { get; set; };
+        public DateTime Date { get; set;  }
     }
-    public record Health(DateTime date, double Weight, int? Systolic = null, int? Diastolic = null, Measurements Measurements = null) : RecordBase(date, "health");
-    public record Measurements(DateTime date, double Neck, double Chest, double Arm, double Waist) : RecordBase(date, "measurements");
+    public record Health(DateTime date, double Weight, int? Systolic = null, int? Diastolic = null, Measurements Measurements = null) : RecordBase;
+    public record Measurements(DateTime date, double Neck, double Chest, double Arm, double Waist) : RecordBase;
 }
