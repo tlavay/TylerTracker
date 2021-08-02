@@ -9,5 +9,6 @@ namespace TylerTracker.Common.Models.Configuration
     internal sealed class Cosmos
     {
         public string DocumentEndpoint { get; set; }
+        public string PrimaryKey { get; set; }
     }
 }

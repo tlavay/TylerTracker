@@ -36,14 +36,14 @@ namespace TylerTracker.UI.Controllers
             }
             catch (Exception ex)
             {
-                message = $"An internal error occurred for health data, id: {health.Id}, date: {health.date}";
+                message = $"An internal error occurred for health data, id: {health.Id}, date: {health.Date}";
                 this.logger.LogError(ex, message);
             }
 
             return Ok(message);
         }
 
-        [HttpGet, Route("get-last-6-months")]
+        [HttpGet, Route("get-last-6-months-of-health-data")]
         public async Task<IActionResult> GetLast6Months()
         {
             return Ok(await this.healthService.GetPrevious6Months(DateTime.Now).ConfigureAwait(false));

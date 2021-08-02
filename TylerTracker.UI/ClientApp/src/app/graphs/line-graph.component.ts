@@ -6,14 +6,7 @@ import { Component, Input } from '@angular/core';
 })
 export class LineGraphComponent  {
   @Input()
-  public chartData = [
-    ['London', 8136000],
-    ['New York', 8538000],
-    ['Paris', 2244000],
-    ['Berlin', 3470000],
-    ['Kairo', 19500000]
-  ];
-
+  public chartData;
   @Input()
   public chartType;
   @Input()

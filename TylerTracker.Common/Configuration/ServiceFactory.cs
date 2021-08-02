@@ -36,7 +36,12 @@ namespace TylerTracker.Common.Configuration
                 AllowBulkExecution = true,
             };
 
-            return new CosmosClient(config.Cosmos.DocumentEndpoint, "4LDqd90Cck5tI9CcN8VGXkDcPGESP95mKWErtfwhSxrlvWsJxo2g2lG1mll8dSgCyMg1fcSLmf7uRGyOQCIj6A==", clientOptions);
+            if (!string.IsNullOrEmpty(config?.Cosmos?.PrimaryKey))
+            {
+                return new CosmosClient(config.Cosmos.DocumentEndpoint, config.Cosmos.PrimaryKey, clientOptions);
+            }
+
+            return new CosmosClient(config.Cosmos.DocumentEndpoint, defaultAzureCredential, clientOptions);
         }
 
         public static Container CreateCosmosContainer(CosmosClient cosmosClient)

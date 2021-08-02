@@ -23,9 +23,9 @@ namespace TylerTracker.Common.Models
             }
         }
 
-        public string DocumentType { get; set; };
+        public string DocumentType { get; set; }
         public DateTime Date { get; set;  }
     }
-    public record Health(DateTime date, double Weight, int? Systolic = null, int? Diastolic = null, Measurements Measurements = null) : RecordBase;
-    public record Measurements(DateTime date, double Neck, double Chest, double Arm, double Waist) : RecordBase;
+    public record Health(double Weight, int? Systolic = null, int? Diastolic = null, Measurements Measurements = null) : RecordBase;
+    public record Measurements(double Neck, double Chest, double Arm, double Waist) : RecordBase;
 }

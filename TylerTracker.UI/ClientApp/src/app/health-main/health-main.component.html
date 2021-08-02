@@ -57,8 +57,9 @@
   </div>
   <div [hidden]="!isFormHidden">
     <app-line-graph [chartType]="'LineChart'"
-                    [chartColumns]="['City', 'Inhabitants']"
-                    [chartTitle]="'fuck yeah'"></app-line-graph>
+                    [chartData]="weightData"
+                    [chartColumns]="['Date', 'Weight']"
+                    [chartTitle]="'Weight History'"></app-line-graph>
   </div>
 </div>
 
