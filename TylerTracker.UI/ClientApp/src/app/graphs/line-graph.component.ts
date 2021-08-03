@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { GoogleChartComponent } from 'angular-google-charts';
 
 @Component({
   selector: 'app-line-graph',
@@ -13,4 +14,6 @@ export class LineGraphComponent  {
   public chartColumns;
   @Input()
   public chartTitle;
+  @Input()
+  public chartOptions;
 }

@@ -14,7 +14,7 @@ namespace TylerTracker.Common.Services.Interfaces
         /// </summary>
         /// <param name="date">Start date</param>
         /// <returns>Health Data</returns>
-        Task<IEnumerable<Health>> GetPrevious6Months(DateTime date);
+        Task<IEnumerable<Health>> GetPreviousHealthData(DateTime date);
         /// <summary>
         /// Saves distinct health data. This way we dont have to worry about duplicates.
         /// Determines duplicate based on date.
