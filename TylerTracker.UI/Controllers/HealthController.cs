@@ -46,7 +46,8 @@ namespace TylerTracker.UI.Controllers
         [HttpGet, Route("get-last-6-months-of-health-data")]
         public async Task<IActionResult> GetLast6Months()
         {
-            return Ok(await this.healthService.GetPrevious6Months(DateTime.Now).ConfigureAwait(false));
+            var results = await this.healthService.GetPreviousHealthData(DateTime.Now.AddDays(-30)).ConfigureAwait(false);
+            return Ok(results);
         }
     }
 }

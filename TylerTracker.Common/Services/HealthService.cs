@@ -18,9 +18,9 @@ namespace TylerTracker.Common.Services
         {
             this.tylerTrackerRepository = tylerTrackerRepository;
         }
-        public async Task<IEnumerable<Health>> GetPrevious6Months(DateTime date)
+        public async Task<IEnumerable<Health>> GetPreviousHealthData(DateTime date)
         {
-            var queryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.date < @date").WithParameter("@date", date);
+            var queryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.date > @date").WithParameter("@date", date);
             var healths = await this.tylerTrackerRepository.Query<Health>(queryDefinition).ConfigureAwait(false);
             return healths.OrderBy(h => h.Date);
         }

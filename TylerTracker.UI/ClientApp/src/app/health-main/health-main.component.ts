@@ -1,34 +1,39 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Health } from "../models/health";
 import { Measurements } from "../models/measurements";
-import { WeightData } from "../models/weight-data";
 import { TylerTrackerApi } from "../services/tyler-tracker-api";
 
 @Component({
   selector: 'app-basic-example',
   templateUrl: './health-main.component.html'
 })
-export class HealthMainComponent implements OnInit, AfterViewInit {
+export class HealthMainComponent implements OnInit {
   public formGroup: FormGroup;
   public currentDate: string;
   public isFormHidden: boolean;
   public loading: boolean;
-  public healthData: Health[] = [];
   public weightData: any[] = [];
+  public chartOptions;
 
   constructor(private api: TylerTrackerApi) { }
-  ngAfterViewInit(): void {
-    this.api.getLast6MonthsOfHealthData().subscribe(result => {
-      this.healthData = result;
-      for (var i = 0; i < this.healthData.length; i++) {
-        const health = this.healthData[i];
-        this.createWeightData(health);
-      }
-    });
-  }
 
   ngOnInit() {
+    this.chartOptions = {
+      0: {
+        type: 'exponential',
+        visibleInLegend: true,
+      }
+    };
+    this.loading = true;
+    this.api.getLast6MonthsOfHealthData().subscribe(results => {
+      for (var i = 0; i < results.length; i++) {
+        const health = results[i];
+        const newDate = new Date(health.date);
+        this.weightData.push([newDate.toLocaleDateString('en-us').toString(), health.weight]);
+      }
+      this.loading = false;
+    });
     this.formGroup = new FormGroup({
       weight: new FormControl('', [
         Validators.required,
@@ -74,21 +79,15 @@ export class HealthMainComponent implements OnInit, AfterViewInit {
         health.measurements = measurments;
       }
 
-      this.createWeightData(health);
-      console.log(this.weightData);
+      if (health) {
+        this.weightData.push([health.date, health.date]);
+      }
+
       this.loading = true;
       this.api.createHealthData(health).subscribe(result => {
         this.loading = false;
       });
       this.isFormHidden = true;
     }
-  }
-
-  private position: number = 0;
-  private createWeightData(health: Health) {
-    const blah = [health.date.toString(), health.weight];
-    const myData = [];
-    myData.push(blah);
-    this.weightData.push(blah);
   }
 }
