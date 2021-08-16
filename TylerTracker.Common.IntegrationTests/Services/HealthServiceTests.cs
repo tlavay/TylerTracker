@@ -22,7 +22,7 @@ namespace TylerTracker.Common.IntegrationTests.Services
         public async Task GetPrevious6Months_WithCurrentDate_ShouldReturnHealthDatas()
         {
             //Act
-            var healths = await this.healthService.GetPrevious6Months(DateTime.Now).ConfigureAwait(false);
+            var healths = await this.healthService.GetPreviousHealthData(DateTime.Now).ConfigureAwait(false);
 
             //Assert
             healths.Any();

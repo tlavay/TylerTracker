@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TylerTracker\TylerTracker.Common\TylerTracker.Common.csproj" />
+    <ProjectReference Include="..\TylerTracker.Common\TylerTracker.Common.csproj" />
   </ItemGroup>
 
 </Project>
