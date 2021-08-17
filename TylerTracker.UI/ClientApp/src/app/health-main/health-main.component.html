@@ -1,4 +1,4 @@
-<!--<div class="container">
+<div class="container">
   <div [hidden]="isFormHidden">
     <div class="text-center">
       <h3><b>Date:</b> {{currentDate}}</h3>
@@ -55,19 +55,11 @@
       </div>
     </form>
   </div>
-  <div [hidden]="!isFormHidden">
-    <app-line-graph [chartType]="'LineChart'"
-                    [chartData]="weightData"
-                    [chartColumns]="['Date', 'Weight']"
-                    [chartTitle]="'Weight History'"></app-line-graph>
+  <div *ngIf="!loading && isFormHidden">
+    <div class="row justify-content-center">
+      <google-chart [type]="'ScatterChart'"
+                    [data]="weightData"
+                    [options]="chartOptions"></google-chart>
+    </div>
   </div>
-</div>-->
-
-<div *ngIf="!loading">
-  <app-line-graph [chartType]="'ScatterChart'"
-                  [chartData]="weightData"
-                  [chartColumns]="['Date', 'Weight']"
-                  [chartTitle]="'Weight History'"
-                  [chartOptions]="chartOptions">
-  </app-line-graph>
 </div>

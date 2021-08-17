@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Health } from "../models/health";
 import { Measurements } from "../models/measurements";
+import { WeightData } from "../models/weight-data";
 import { TylerTrackerApi } from "../services/tyler-tracker-api";
 
 @Component({
@@ -14,23 +15,27 @@ export class HealthMainComponent implements OnInit {
   public isFormHidden: boolean;
   public loading: boolean;
   public weightData: any[] = [];
-  public chartOptions;
+  public chartOptions = {
+    title: 'Weight History',
+    hAxis: { title: 'Date' },
+    vAxis: { title: 'Weight' },
+    series: {
+      1: { curveType: 'function' }
+    },
+    legend: 'none',
+    trendlines: { 0: {} }
+  };
+  public hasData: boolean = true;
 
   constructor(private api: TylerTrackerApi) { }
 
   ngOnInit() {
-    this.chartOptions = {
-      0: {
-        type: 'exponential',
-        visibleInLegend: true,
-      }
-    };
     this.loading = true;
     this.api.getLast6MonthsOfHealthData().subscribe(results => {
       for (var i = 0; i < results.length; i++) {
         const health = results[i];
         const newDate = new Date(health.date);
-        this.weightData.push([newDate.toLocaleDateString('en-us').toString(), health.weight]);
+        this.weightData.push([newDate, health.weight]);
       }
       this.loading = false;
     });

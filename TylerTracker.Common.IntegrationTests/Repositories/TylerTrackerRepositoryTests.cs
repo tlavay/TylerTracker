@@ -36,20 +36,20 @@ namespace TylerTracker.Common.IntegrationTests.Repositories
             expectedHealth.Should().BeEquivalentTo(actualHealth);
         }
 
-        //[Fact]
-        //public async Task Temp()
-        //{
-        //    var startDate = DateTime.Now.AddMonths(-6);
-        //    var endDate = DateTime.Now;
-        //    var currentDate = startDate;
-        //    var random = new Random();
-        //    while (endDate > currentDate)
-        //    {
-        //        var weight = double.Parse($"2{random.Next(2, 6)}{random.Next(0, 10)}.{random.Next(0, 10)}");
-        //        var health = new Health(currentDate, weight);
-        //        await this.tylerTrackerRepo.CreateItemAsync(health);
-        //        currentDate = currentDate.AddDays(1);
-        //    }
-        //}
+        [Fact]
+        public async Task Temp()
+        {
+            var startDate = DateTime.Now.AddDays(-30);
+            var endDate = DateTime.Now;
+            var currentDate = startDate;
+            var random = new Random();
+            while (endDate > currentDate)
+            {
+                var weight = double.Parse($"25{random.Next(5, 7)}.{random.Next(0, 10)}");
+                var health = new Health(weight) { Date = currentDate };
+                await this.tylerTrackerRepo.CreateItemAsync(health);
+                currentDate = currentDate.AddDays(1);
+            }
+        }
     }
 }
