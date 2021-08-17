@@ -28,19 +28,17 @@ namespace TylerTracker.UI.Controllers
         [HttpPost, Route("create-health")]
         public async Task<IActionResult> CreateHealth(Health health)
         {
-            string message;
             try
             {
                 await this.healthService.SaveDistinctHealth(health).ConfigureAwait(false);
-                message = "Successfully saved health data.";
             }
             catch (Exception ex)
             {
-                message = $"An internal error occurred for health data, id: {health.Id}, date: {health.Date}";
-                this.logger.LogError(ex, message);
+                var errorMessage = $"An internal error occurred for health data, id: {health.Id}, date: {health.Date}";
+                this.logger.LogError(ex, errorMessage);
             }
 
-            return Ok(message);
+            return Ok();
         }
 
         [HttpGet, Route("get-last-6-months-of-health-data")]
