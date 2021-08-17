@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { HealthMainComponent } from './health-main/health-main.component';
-import { LineGraphComponent } from './graphs/line-graph.component';
 
 import { TylerTrackerApi } from './services/tyler-tracker-api'
 
@@ -21,7 +20,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     NavMenuComponent,
     HomeComponent,
     HealthMainComponent,
-    LineGraphComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Health } from "../models/health";
 import { Measurements } from "../models/measurements";
-import { WeightData } from "../models/weight-data";
 import { TylerTrackerApi } from "../services/tyler-tracker-api";
 
 @Component({
@@ -84,12 +83,9 @@ export class HealthMainComponent implements OnInit {
         health.measurements = measurments;
       }
 
-      if (health) {
-        this.weightData.push([health.date, health.date]);
-      }
-
       this.loading = true;
       this.api.createHealthData(health).subscribe(result => {
+        this.weightData.push([health.date, health.weight]);
         this.loading = false;
       });
       this.isFormHidden = true;
